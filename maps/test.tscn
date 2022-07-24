@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/car.tscn" type="PackedScene" id=1]
+[ext_resource path="res://maps/main.gd" type="Script" id=2]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 128, 128 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type spatial;
+
+const float grid_size = 64.0;
+const float thickness = 0.1;
+
+void fragment() {
+	vec2 scaled_uv = UV * grid_size;
+	vec2 diff = abs(floor(scaled_uv) - scaled_uv);
+	if (diff.x < thickness || diff.y < thickness){
+		ALBEDO = vec3(0);
+	} else {
+		ALBEDO = vec3(UV, 0);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 64, 0.01, 64 )
+
+[node name="StaticBody" type="StaticBody"]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 4 )
+
+[node name="car" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -3.466 )
+
+[node name="Camera" type="Camera" parent="."]
+current = true
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23945, -3.59365 )
+
+[node name="cam_handle" type="Spatial" parent="Spatial"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.36244e-07, 1.5463, -6.14539 )
