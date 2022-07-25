@@ -49,4 +49,4 @@ current = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23945, -3.59365 )
 
 [node name="cam_handle" type="Spatial" parent="Spatial"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.36244e-07, 1.5463, -6.14539 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.36244e-07, 1.84765, -4.61952 )

@@ -11,7 +11,8 @@ func _physics_process(delta):
 	if top_down_view:
 		cam.global_transform.origin = Vector3(player.global_transform.origin.x, 20, player.global_transform.origin.z)
 	else:
-		handlehandle.global_transform = player.global_transform
+		handlehandle.global_transform.basis = handlehandle.global_transform.basis.slerp(player.global_transform.basis, 8 * delta)
+		handlehandle.global_transform.origin = lerp(handlehandle.global_transform.origin, player.global_transform.origin, 16 * delta)
 		cam.global_transform = handle.global_transform
 
 func _input(event):

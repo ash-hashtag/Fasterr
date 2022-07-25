@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/155767-HUTCH-HD-SFX-2014-0393.mp3-ac43a5a4eadbd4fd15343f5c20278def.mp3str"
+
+[deps]
+
+source_file="res://media/audio/155767-HUTCH-HD-SFX-2014-0393.mp3"
+dest_files=[ "res://.import/155767-HUTCH-HD-SFX-2014-0393.mp3-ac43a5a4eadbd4fd15343f5c20278def.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
