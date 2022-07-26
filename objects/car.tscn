@@ -100,7 +100,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611716, 0.160207, 0.914214 )
 use_as_steering = true
 wheel_radius = 0.3
 wheel_rest_length = 0.07
-wheel_friction_slip = 15.0
+wheel_friction_slip = 30.0
 suspension_travel = 0.07
 suspension_stiffness = 70.0
 
@@ -115,7 +115,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.612, 0.16, 0.914 )
 use_as_steering = true
 wheel_radius = 0.3
 wheel_rest_length = 0.07
-wheel_friction_slip = 15.0
+wheel_friction_slip = 30.0
 suspension_travel = 0.07
 suspension_stiffness = 70.0
 
@@ -130,7 +130,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.612, 0.16, -1.01088 )
 use_as_traction = true
 wheel_radius = 0.3
 wheel_rest_length = 0.07
-wheel_friction_slip = 15.0
+wheel_friction_slip = 20.0
 suspension_travel = 0.07
 suspension_stiffness = 70.0
 
@@ -145,7 +145,7 @@ transform = Transform( 1, -1.42109e-14, 0, 2.84217e-14, 1, 0, 0, 0, 1, 0.611716,
 use_as_traction = true
 wheel_radius = 0.3
 wheel_rest_length = 0.07
-wheel_friction_slip = 15.0
+wheel_friction_slip = 20.0
 suspension_travel = 0.07
 suspension_stiffness = 70.0
 
@@ -155,12 +155,25 @@ mesh = SubResource( 1 )
 skeleton = NodePath("../..")
 material/0 = null
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.482237, 1.18453 )
 stream = ExtResource( 4 )
 autoplay = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="fps" type="Label" parent="CanvasLayer/Control"]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[node name="speed" type="Label" parent="CanvasLayer/Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -75.0
+margin_right = 118.0
+margin_bottom = -11.0

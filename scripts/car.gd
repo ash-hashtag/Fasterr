@@ -1,12 +1,15 @@
 extends VehicleBody
 
-const max_torque = 800
-const max_rpm = 1000
+const max_torque = 400
+const max_rpm = 2000
 const max_brake_force = 10
 
 onready var back_wheels = [get_node("back_left"), get_node("back_right")]
 onready var audio_player = $AudioStreamPlayer3D
+onready var fps_label = $CanvasLayer/Control/fps
+onready var speed_label = $CanvasLayer/Control/speed
 onready var initpos = global_transform.origin
+onready var prev_pos = initpos
 
 var cam_first = true
 
@@ -19,25 +22,19 @@ func _physics_process(delta):
 	else:
 		for wheel in back_wheels: wheel.engine_force = 0
 
-	audio_player.unit_db = 8.69 * log(back_wheels[0].get_rpm() * 2 / max_rpm)
+	audio_player.unit_db = 8.69 * log(abs(back_wheels[0].get_rpm() + 1) / max_rpm)
 	
 	if Input.is_action_pressed("space"):
 		brake = lerp(brake, max_brake_force, 8 * delta)
 	elif brake != 0:
 		brake = 0
+	speed_label.text = str(floor((global_transform.origin - prev_pos).length() * 3.6 / delta)) + " km/hr"
+	prev_pos = global_transform.origin
+	fps_label.text = "FPS: " + str(Engine.get_frames_per_second())
 
-var flipped: = false
-func _on_Timer_timeout():
-	if abs(rotation.z) > PI / 2 - 0.1:
-		if flipped:
-			flipped = false
-			apply_central_impulse(Vector3.UP * 128)
-			rotation.z = 0
-		else:
-			flipped = true
-	check_on_plane()
-
-
-func check_on_plane():
-	if global_transform.origin.y < 0:
+func _input(event):
+	if event.is_action_pressed("flip"):
+		apply_central_impulse(Vector3.UP * 128)
+		rotation.z = 0
+	elif event.is_action_pressed("respawn"):
 		global_transform.origin = initpos

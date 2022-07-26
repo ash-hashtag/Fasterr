@@ -1,13 +1,54 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/gun.gd" type="Script" id=1]
+[ext_resource path="res://imports/crosshair.png" type="Texture" id=2]
 
-[node name="Spatial" type="Spatial"]
+[sub_resource type="ParticlesMaterial" id=1]
+direction = Vector3( 0, 0, -1 )
+spread = 60.0
+initial_velocity = 6.16
+color = Color( 1, 0.878431, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 1, 0.937255, 0, 1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 3 )
+size = Vector3( 0.1, 0.1, 0.1 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Gun" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="RayCast" type="RayCast" parent="."]
+enabled = true
 cast_to = Vector3( 0, 0, 20 )
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.167
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.68073 )
+emitting = false
+visibility_aabb = AABB( -1.1027, -0.988024, -1.30763, 2.2054, 1.97605, 2.61525 )
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Position3D" type="Position3D" parent="CanvasLayer"]
+
+[node name="Sprite3D" type="Sprite3D" parent="CanvasLayer"]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 6.6394, 0 )
+billboard = 2
+texture = ExtResource( 2 )
+
+[node name="Line2D" type="Line2D" parent="CanvasLayer"]
+points = PoolVector2Array( 306, 123, 769, 316, 319, 415 )
+width = 30.0
+width_curve = SubResource( 4 )
+default_color = Color( 0, 0, 0, 1 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

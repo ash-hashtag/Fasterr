@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://imports/crosshair.png" type="Texture" id=1]
+[ext_resource path="res://test/test.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Line2D" type="Line2D" parent="CanvasLayer"]
+width_curve = SubResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3.26026 )
+
+[node name="Position3D" type="Position3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="Position3D"]
+texture = ExtResource( 1 )

@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type spatial;
+
+const float grid_size = 0.2;
+const float thickness = 0.1;
+
+void fragment() {
+	vec2 uv = (inverse(WORLD_MATRIX) * CAMERA_MATRIX * vec4(VERTEX, 1.0)).rg;
+	vec2 scaled_uv = uv * grid_size;
+	vec2 diff = abs(floor(scaled_uv) - scaled_uv);
+	if ((diff.x < thickness || diff.y < thickness)){
+		ALBEDO = vec3(0);
+	} else {
+		ALBEDO = vec3(uv, 0);
+	}
+}
+"
+
+[resource]
+shader = SubResource( 2 )
